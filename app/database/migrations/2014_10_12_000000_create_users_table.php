@@ -15,13 +15,11 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->foreignId('current_team_id')->nullable();
-            $table->string('profile_photo_path', 2048)->nullable();
+            $table->string('name')->unique()->name('名前');
+            $table->string('password')->name('パスワード');
+            $table->string('email')->name('メールアドレス');
+            $table->string('tel')->nullable()->name('電話番号');
+            $table->string('role')->nullable()->name('権限');
             $table->timestamps();
         });
     }
