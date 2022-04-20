@@ -10,4 +10,9 @@ class Account extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
+    public function realestates()
+    {
+        return $this->hasMany(Realestate::class);
+    }
 }
