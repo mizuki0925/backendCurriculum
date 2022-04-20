@@ -22,10 +22,9 @@ class AccountFactory extends Factory
      */
     public function definition()
     {
-        $jpTime = new DateTime();
-        $jpTime->setTimeZone(new DateTimeZone('Asia/Tokyo'));
+        // $jpTime = new DateTime();
+        // $jpTime->setTimeZone(new DateTimeZone('Asia/Tokyo'));
         return [
-
             'name' => $this->faker->name,
             'password' => $this->faker->password,
             'email' => $this->faker->safeEmail,

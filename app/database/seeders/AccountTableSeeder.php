@@ -16,6 +16,6 @@ class AccountTableSeeder extends Seeder
      */
     public function run()
     {
-        Account::factory()->count(20)->create();
+        Account::factory()->count(100)->create();
     }
 }
