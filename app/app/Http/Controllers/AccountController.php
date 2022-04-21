@@ -15,8 +15,11 @@ class AccountController extends Controller
         return view('account/index', compact('accounts'));
     }
 
-    public function regist()
+    public function regist(Request $request)
     {
+        if (!empty($_POST)) {
+            dd($request);
+        }
         return view('account/regist');
     }
 
