@@ -15,4 +15,9 @@ class Realestate extends Model
     {
         return $this->belongsTo(Account::class);
     }
+
+    public function scopeSearch($query)
+    {
+        
+    }
 }
