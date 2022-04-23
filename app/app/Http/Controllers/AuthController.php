@@ -12,14 +12,16 @@ class AuthController extends Controller
         return view('auth/index');
     }
 
-    public function login()
+    public function login(Request $request = null)
     {
+        if (is_null($request)) {
+            return view('auth/login');
+        }
 
+        
     }
-    
+
     public function logout()
     {
-
     }
-
 }

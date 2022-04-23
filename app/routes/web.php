@@ -22,6 +22,8 @@ Route::get('/', function () {
 // })->middleware(['auth'])->name('dashboard');
 Route::group(['prefix' => 'auth', 'as' => 'auth.'], function() {
     Route::get('/', 'App\Http\Controllers\AuthController@index')->name('index');
+    Route::get('/login', 'App\Http\Controllers\AuthController@login')->name('login');
+    Route::post('/login', 'App\Http\Controllers\AuthController@login')->name('login');
     // Route::get('/regist', 'App\Http\Controllers\PropertyController@regist')->name('regist');
     // Route::get('/edit', 'App\Http\Controllers\PropertyController@edit')->name('edit');
     // Route::get('/spec', 'App\Http\Controllers\PropertyController@spec')->name('spec');
