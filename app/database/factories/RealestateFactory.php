@@ -21,10 +21,12 @@ class RealestateFactory extends Factory
     public function definition()
     {
         $floor_plan = ["1R", "1K", "1DK", "1LDK", "2K", "2DK", "2LDK", "3DK", "3LDK", "4DK", "4LDK"];
-
+        $adress = explode(" ", $this->faker->address);
+        $name = str_replace("町", "〇〇〇", $this->faker->streetName);
+        
         return [
-            'name' => $this->faker->streetName,
-            'adress' => $this->faker->address,
+            'name' => $name,
+            'adress' => $adress[2],
             'breadth' => $this->faker->numberBetween(10, 50),
             'floor_plan' => $floor_plan[rand(0, 10)],
             'tenancy_status' => $this->faker->numberBetween(1, 3),
