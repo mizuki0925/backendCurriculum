@@ -15,6 +15,11 @@ body {
     margin: auto;
 	padding: 0 15px;
 }
+.inner400 {
+    max-width: 600px;
+    margin: auto;
+	padding: 0 15px;
+}
 .content {
 	position: relative;
 	margin: 50px auto 150px;
@@ -216,4 +221,29 @@ table .btn:hover {
 }
 .form-search {
 	margin-bottom: 10px;
+}
+/* ====================
+	ログインページ
+==================== */
+.inner400.login {
+	position: relative;
+	height: 100vh;
+}
+.login_form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 100%;
+    padding: 50px 50px;
+    border: solid 1px #ddd;
+    border-radius: 5px;
+}
+.login_form h1 {
+	text-align: center;
+}
+.login_form .btn {
+	display: block;
+    margin: 40px auto 0;
+    padding: 10px 40px;
 }

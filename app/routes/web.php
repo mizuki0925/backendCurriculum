@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\PropertyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,26 +22,18 @@ Route::get('/', function () {
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth'])->name('dashboard');
-Route::group(['prefix' => 'auth', 'as' => 'auth.'], function() {
-    Route::get('/', 'App\Http\Controllers\AuthController@index')->name('index');
-    Route::get('/login', 'App\Http\Controllers\AuthController@login')->name('login');
-    Route::post('/login', 'App\Http\Controllers\AuthController@login')->name('login');
-    // Route::get('/regist', 'App\Http\Controllers\PropertyController@regist')->name('regist');
-    // Route::get('/edit', 'App\Http\Controllers\PropertyController@edit')->name('edit');
-    // Route::get('/spec', 'App\Http\Controllers\PropertyController@spec')->name('spec');
+Route::group(['prefix' => 'account', 'as' => 'account.'], function () {
+    Route::get('/', [AccountController::class, 'index'])->name('index');
+    Route::get('/regist', [AccountController::class, 'regist'])->name('regist');
+    Route::get('/edit', [AccountController::class, 'edit'])->name('edit');
+    Route::get('/spec', [AccountController::class, 'spec'])->name('spec');
+    Route::get('/login', [AccountController::class, 'login'])->name('login');
+});
+Route::group(['prefix' => 'property', 'as' => 'property.'], function () {
+    Route::get('/', [PropertyController::class, 'index'])->name('index');
+    Route::get('/regist', [PropertyController::class, 'regist'])->name('regist');
+    Route::get('/edit', [PropertyController::class, 'edit'])->name('edit');
+    Route::get('/spec', [PropertyController::class, 'spec'])->name('spec');
 });
 
-Route::group(['prefix' => 'account', 'as' => 'account.'], function() {
-    Route::get('/', 'App\Http\Controllers\AccountController@index')->name('index');
-    Route::get('/regist', 'App\Http\Controllers\AccountController@regist')->name('regist');
-    Route::post('/regist', 'App\Http\Controllers\AccountController@regist')->name('regist');
-    Route::get('/edit', 'App\Http\Controllers\AccountController@edit')->name('edit');
-    Route::get('/spec', 'App\Http\Controllers\AccountController@spec')->name('spec');
-});
-
-Route::group(['prefix' => 'property', 'as' => 'property.'], function() {
-    Route::get('/', 'App\Http\Controllers\PropertyController@index')->name('index');
-    Route::get('/regist', 'App\Http\Controllers\PropertyController@regist')->name('regist');
-    Route::get('/edit', 'App\Http\Controllers\PropertyController@edit')->name('edit');
-    Route::get('/spec', 'App\Http\Controllers\PropertyController@spec')->name('spec');
-});
+require __DIR__ . '/auth.php';
