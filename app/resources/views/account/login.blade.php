@@ -9,20 +9,25 @@
     <link href="{{ asset('css/reset.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
+
 <body>
     <main>
         <div class="inner400 login">
             <div class="login_form">
                 <h1>ログイン</h1>
-                <form>
+                <form method="POST" action={{route('account.logon')}}>
+                    @csrf
                     <div>
-                        <input placeholder="メールアドレス"><br>
-                        <input placeholder="パスワード">
+                        <input name="email" type="email" placeholder="メールアドレス"><br>
+                        {{ $errors->first('email')}}
+                        <input name="password" type="password" placeholder="パスワード">
+                        {{ $errors->first('password')}}
                     </div>
-                    <button class="btn" type="submit">ログイン</button>
+                    <button class="btn" type="submit" name="logon">ログイン</button>
                 </form>
             </div>
         </div>
     </main>
 </body>
+
 </html>

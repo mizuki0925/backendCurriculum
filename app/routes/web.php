@@ -28,9 +28,10 @@ Route::group(['prefix' => 'account', 'as' => 'account.'], function () {
     Route::get('/edit', [AccountController::class, 'edit'])->name('edit');
     Route::get('/spec', [AccountController::class, 'spec'])->name('spec');
     Route::get('/login', [AccountController::class, 'login'])->name('login');
+    Route::post('/logon', [AccountController::class, 'logon'])->name('logon');
 });
 Route::group(['prefix' => 'property', 'as' => 'property.'], function () {
-    Route::get('/', [PropertyController::class, 'index'])->name('index');
+    Route::get('/', [PropertyController::class, 'index'])->middleware('login')->name('index');
     Route::get('/regist', [PropertyController::class, 'regist'])->name('regist');
     Route::get('/edit', [PropertyController::class, 'edit'])->name('edit');
     Route::get('/spec', [PropertyController::class, 'spec'])->name('spec');

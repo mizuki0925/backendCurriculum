@@ -14,9 +14,7 @@ class AuthController extends Controller
 
     public function login(Request $request = null)
     {
-        if (is_null($request)) {
             return view('auth/login');
-        }
 
         
     }
