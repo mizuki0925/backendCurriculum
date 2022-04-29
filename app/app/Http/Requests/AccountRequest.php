@@ -44,4 +44,19 @@ class AccountRequest extends FormRequest
             'role' => '権限'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'name.required' => ':attributeを入力してください',
+            'name.max' => ':attributeは255文字以内で入力してください',
+            'password.required' => ':attributeを入力してください',
+            'password.max' => ':attributeは255文字以内で入力してください',
+            'email.required' => ':attributeを入力してください',
+            'email.max' => ':attributeは255文字以内で入力してください',
+            'tel.max' => ':attributeを正しく入力してください',
+            'role.required' => ':attributeを入力してください',
+            'role.integer' => ':attributeを正しく選択してください',
+        ];
+    }
 }

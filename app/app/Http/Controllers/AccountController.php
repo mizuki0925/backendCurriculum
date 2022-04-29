@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LogonRequest;
+use App\Http\Requests\AccountRequest;
 use App\Models\Account;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,10 +17,14 @@ class AccountController extends Controller
 
     public function regist()
     {
-        
         return view('account/regist');
     }
-
+    public function add(AccountRequest $request)
+    {
+        dd($request);
+        // アカウント作成処理
+        return view('account/index');
+    }
     public function edit()
     {
         return view('account/edit');
@@ -39,10 +44,8 @@ class AccountController extends Controller
         if ($request->has('logon')) {
             dd(Auth::attempt(['email' => $request->email, 'password' => $request->password]));
             if (Auth::attempt($request->email, $request->password)) {
-                
             }
             return back()->withInput()->withErrors(['password' => 'メールアドレスまたはパスワードが正しくありません']);
         }
-
     }
 }

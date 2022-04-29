@@ -25,6 +25,7 @@ Route::get('/', function () {
 Route::group(['prefix' => 'account', 'as' => 'account.'], function () {
     Route::get('/', [AccountController::class, 'index'])->name('index');
     Route::get('/regist', [AccountController::class, 'regist'])->name('regist');
+    Route::post('/add', [AccountController::class, 'add'])->name('add');
     Route::get('/edit', [AccountController::class, 'edit'])->name('edit');
     Route::get('/spec', [AccountController::class, 'spec'])->name('spec');
     Route::get('/login', [AccountController::class, 'login'])->name('login');
