@@ -21,7 +21,13 @@ class AccountController extends Controller
     }
     public function add(AccountRequest $request)
     {
-        dd($request);
+        // 試行錯誤中
+        return back()->$request->session()->push('flashMessage', '登録が失敗しました');
+        try {
+            //code...
+        } catch (\Throwable $th) {
+            return back()->session()->flash('flashMessage', '登録が失敗しました');
+        }
         // アカウント作成処理
         return view('account/index');
     }

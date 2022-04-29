@@ -1,5 +1,10 @@
 @extends('layouts.header')
 @section('title', 'アカウント登録')
+@if (session('successMessage'))
+<div class="alert alert-success text-center">
+    {{ session('flashMessage') }}
+</div>
+@endif
 @section('content')
 <div class="inner1000 content">
     <h1>アカウント登録画面</h1>
