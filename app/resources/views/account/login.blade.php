@@ -18,7 +18,7 @@
                 <form method="POST" action={{route('account.logon')}}>
                     @csrf
                     <div>
-                        <input name="email" type="email" placeholder="メールアドレス"><br>
+                        <input name="email" type="email" value="{{ old('email') }}" placeholder="メールアドレス"><br>
                         {{ $errors->first('email')}}
                         <input name="password" type="password" placeholder="パスワード">
                         {{ $errors->first('password')}}
