@@ -1,10 +1,5 @@
 @extends('layouts.header')
 @section('title', 'アカウント登録')
-@if (session('successMessage'))
-<div class="alert alert-success text-center">
-    {{ session('flashMessage') }}
-</div>
-@endif
 @section('content')
 <div class="inner1000 content">
     <h1>アカウント登録画面</h1>
@@ -13,13 +8,13 @@
         <div class="flex entry">
             <div>
                 <label>アカウント名</label>
-                <input type="text" name="name" placeholder="例）テスト名">
+                <input type="text" name="name" value="{{ old('name') }}" placeholder="例）テスト名">
                 {{ $errors->first('name')}}
             </div>
             <div>
                 <label>メールアドレス</label>
                 <div>
-                    <input type="email" name="email" placeholder="例）test@gmail.com">
+                    <input type="email" name="email" value="{{ old('email') }}" placeholder="例）test@gmail.com">
                     {{ $errors->first('email')}}
                 </div>
             </div>
@@ -30,7 +25,7 @@
             </div>
             <div>
                 <label>電話番号</label>
-                <input type="text" name="tel" placeholder="例）07012345678">
+                <input type="text" name="tel" value="{{ old('tel') }}" placeholder="例）07012345678">
                 {{ $errors->first('tel')}}
             </div>
             <div>

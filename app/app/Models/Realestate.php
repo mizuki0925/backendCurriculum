@@ -11,6 +11,14 @@ class Realestate extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $fillable = [
+        'name',
+        'adress',
+        'breadth',
+        'floor_plan',
+        'tenancy_status'
+    ];
+
     public function accounts()
     {
         return $this->belongsTo(Account::class);
@@ -18,6 +26,5 @@ class Realestate extends Model
 
     public function scopeSearch($query)
     {
-        
     }
 }

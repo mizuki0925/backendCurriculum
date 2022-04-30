@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LogonRequest;
 use App\Http\Requests\AccountRequest;
 use App\Models\Account;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,12 +22,18 @@ class AccountController extends Controller
     }
     public function add(AccountRequest $request)
     {
-        // 試行錯誤中
-        return back()->$request->session()->push('flashMessage', '登録が失敗しました');
         try {
-            //code...
+            $account = new Account();
+            $account->create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'tel' => $request->tel,
+                'role' => $request->role
+            ]);
+            return redirect('account/login')->with('flashMessage', '登録が完了しました');
         } catch (\Throwable $th) {
-            return back()->session()->flash('flashMessage', '登録が失敗しました');
+            return back()->with('flashMessage', '登録が失敗しました');
         }
         // アカウント作成処理
         return view('account/index');

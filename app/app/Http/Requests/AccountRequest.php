@@ -28,7 +28,7 @@ class AccountRequest extends FormRequest
         return [
             'name' => 'required|max:255',
             'password' => 'required|max:255',
-            'email' => 'required|max:255',
+            'email' => 'required|max:255|unique:accounts',
             'tel' => 'max:20',
             'role' => 'integer|max:2'
         ];
@@ -54,9 +54,10 @@ class AccountRequest extends FormRequest
             'password.max' => ':attributeは255文字以内で入力してください',
             'email.required' => ':attributeを入力してください',
             'email.max' => ':attributeは255文字以内で入力してください',
+            'email.unique' => ':attributeは既に使われています',
             'tel.max' => ':attributeを正しく入力してください',
             'role.required' => ':attributeを入力してください',
-            'role.integer' => ':attributeを正しく選択してください',
+            'role.integer' => ':attributeを選択してください',
         ];
     }
 }
