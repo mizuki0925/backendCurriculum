@@ -29,7 +29,7 @@
                         <input name="password" type="password" placeholder="パスワード">
                         {{ $errors->first('password')}}
                     </div>
-                    <button class="btn" type="submit" name="logon">ログイン</button>
+                    <button class="btn" type="submit">ログイン</button>
                 </form>
             </div>
         </div>
