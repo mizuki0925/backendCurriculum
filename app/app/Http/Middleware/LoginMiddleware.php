@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginMiddleware
 {
@@ -16,7 +17,7 @@ class LoginMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!session()->has('name')) {
+        if (!Auth::check()) {
             return redirect(url('account/login'));
         }
         return $next($request);

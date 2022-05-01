@@ -15,21 +15,20 @@ use App\Http\Controllers\PropertyController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth'])->name('dashboard');
-Route::group(['prefix' => 'account', 'as' => 'account.'], function () {
+// ログイン画面とログイン処理
+Route::get('account/login', [AccountController::class, 'login'])->name('account.login');
+Route::post('account/logon', [AccountController::class, 'logon'])->name('account.logon');
+
+Route::group(['prefix' => 'account', 'as' => 'account.', 'middleware' => 'login'], function () {
     Route::get('/', [AccountController::class, 'index'])->name('index');
     Route::get('/regist', [AccountController::class, 'regist'])->name('regist');
     Route::post('/add', [AccountController::class, 'add'])->name('add');
     Route::get('/edit', [AccountController::class, 'edit'])->name('edit');
     Route::get('/spec', [AccountController::class, 'spec'])->name('spec');
-    Route::get('/login', [AccountController::class, 'login'])->name('login');
-    Route::post('/logon', [AccountController::class, 'logon'])->name('logon');
 });
 Route::group(['prefix' => 'property', 'as' => 'property.'], function () {
     Route::get('/', [PropertyController::class, 'index'])->middleware('login')->name('index');

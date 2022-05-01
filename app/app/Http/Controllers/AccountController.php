@@ -55,8 +55,8 @@ class AccountController extends Controller
     public function logon(LogonRequest $request)
     {
         if ($request->has('logon')) {
-            dd(Auth::attempt(['email' => $request->email, 'password' => $request->password]));
-            if (Auth::attempt($request->email, $request->password)) {
+            if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+                return redirect('account')->with('flashMessage', 'ログインが完了しました');
             }
             return back()->withInput()->withErrors(['password' => 'メールアドレスまたはパスワードが正しくありません']);
         }
