@@ -52,11 +52,18 @@ class AccountController extends Controller
     {
         return view('account/login');
     }
+
     public function logon(LogonRequest $request)
     {
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             return redirect('account')->with('flashMessage', 'ログインが完了しました');
         }
         return back()->withInput()->withErrors(['password' => 'メールアドレスまたはパスワードが正しくありません']);
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('account/login')->with('flashMessage', 'ログアウトしました');
     }
 }

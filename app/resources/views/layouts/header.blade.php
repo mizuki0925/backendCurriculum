@@ -18,6 +18,7 @@
             {{ session('flashMessage') }}
         </div>
         @endif
+        {{$role = Auth::user()->role}}
         <div class="top">
             <div class="inner1000 flex">
                 <div>
@@ -26,11 +27,10 @@
                 </div>
                 <div class="flex">
                     <div>
-                        <small>アカウント名</small>
-                        <small>権限名</small>
+                        <small>アカウント名：{{Auth::user()->name}}</small>
+                        <small>権限名：{{config("curriclum.role.${role}")}}</small>
                     </div>
-                    <a href={{route('account.login')}}>ログイン</a>
-                    <a href="#">ログアウト</a>
+                    <a href={{route('account.logout')}}>ログアウト</a>
                 </div>
             </div>
         </div>

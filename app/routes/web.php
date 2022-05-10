@@ -22,6 +22,7 @@ use App\Http\Controllers\PropertyController;
 // ログイン画面とログイン処理
 Route::get('account/login', [AccountController::class, 'login'])->name('account.login');
 Route::post('account/logon', [AccountController::class, 'logon'])->name('account.logon');
+Route::get('account/logout', [AccountController::class, 'logout'])->name('account.logout');
 
 Route::group(['prefix' => 'account', 'as' => 'account.', 'middleware' => 'login'], function () {
     Route::get('/', [AccountController::class, 'index'])->name('index');
@@ -31,7 +32,7 @@ Route::group(['prefix' => 'account', 'as' => 'account.', 'middleware' => 'login'
     Route::get('/spec', [AccountController::class, 'spec'])->name('spec');
 });
 Route::group(['prefix' => 'property', 'as' => 'property.'], function () {
-    Route::get('/', [PropertyController::class, 'index'])->middleware('login')->name('index');
+    Route::get('/', [PropertyController::class, 'index'])->name('index');
     Route::get('/regist', [PropertyController::class, 'regist'])->name('regist');
     Route::get('/edit', [PropertyController::class, 'edit'])->name('edit');
     Route::get('/spec', [PropertyController::class, 'spec'])->name('spec');
