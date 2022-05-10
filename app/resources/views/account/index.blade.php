@@ -26,10 +26,11 @@
                 </td>
                 <td></td>
             </tr>
+            @foreach ($accounts as $account)
             <tr>
                 <td>
                     <a href={{route('account.spec')}}>
-                        <p>アカウント名</p>
+                        <p>{{ $account->name }}</p>
                     </a>
                 </td>
                 <td>
@@ -45,102 +46,9 @@
                     <a href={{route('account.edit')}}><button class="btn">編集</button></a>
                 </td>
             </tr>
-            <tr>
-                <td>
-                    <a href={{route('account.spec')}}">
-                        <p>アカウント名</p>
-                    </a>
-                </td>
-                <td>
-                    <p>test@gmail.com</p>
-                </td>
-                <td>
-                    <p>09012345678</p>
-                </td>
-                <td>
-                    <p>管理者</p>
-                </td>
-                <td>
-                    <a href={{route('account.edit')}}><button class="btn">編集</button></a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href={{route('account.spec')}}>
-                        <p>アカウント名</p>
-                    </a>
-                </td>
-                <td>
-                    <p>test@gmail.com</p>
-                </td>
-                <td>
-                    <p>09012345678</p>
-                </td>
-                <td>
-                    <p>管理者</p>
-                </td>
-                <td>
-                    <a href={{route('account.edit')}}><button class="btn">編集</button></a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href={{route('account.spec')}}>
-                        <p>アカウント名</p>
-                    </a>
-                </td>
-                <td>
-                    <p>test@gmail.com</p>
-                </td>
-                <td>
-                    <p>09012345678</p>
-                </td>
-                <td>
-                    <p>管理者</p>
-                </td>
-                <td>
-                    <a href={{route('account.edit')}}><button class="btn">編集</button></a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href={{route('account.spec')}}>
-                        <p>アカウント名</p>
-                    </a>
-                </td>
-                <td>
-                    <p>test@gmail.com</p>
-                </td>
-                <td>
-                    <p>09012345678</p>
-                </td>
-                <td>
-                    <p>管理者</p>
-                </td>
-                <td>
-                    <a href={{route('account.edit')}}><button class="btn">編集</button></a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href={{route('account.spec')}}>
-                        <p>アカウント名</p>
-                    </a>
-                </td>
-                <td>
-                    <p>test@gmail.com</p>
-                </td>
-                <td>
-                    <p>09012345678</p>
-                </td>
-                <td>
-                    <p>管理者</p>
-                </td>
-                <td>
-                    <a href={{route('account.edit')}}><button class="btn">編集</button></a>
-                </td>
-            </tr>
+            @endforeach
         </tbody>
     </table>
 </div>
+{{ $accounts->links() }}
 @endsection

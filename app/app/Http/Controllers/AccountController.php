@@ -13,7 +13,8 @@ class AccountController extends Controller
 {
     public function index()
     {
-        return view('account/index');
+        $accounts = Account::paginate(10);
+        return view('account/index', compact('accounts'));
     }
 
     public function regist()
@@ -35,7 +36,6 @@ class AccountController extends Controller
         } catch (\Throwable $th) {
             return back()->with('flashMessage', '登録が失敗しました');
         }
-        // アカウント作成処理
         return view('account/index');
     }
     public function edit()
