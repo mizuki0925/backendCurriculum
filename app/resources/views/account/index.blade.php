@@ -27,6 +27,10 @@
                 <td></td>
             </tr>
             @foreach ($accounts as $account)
+            <?php
+            $userRole = $account->role;
+            $id = $account->id;
+            ?>
             <tr>
                 <td>
                     <a href={{route('account.spec')}}>
@@ -34,21 +38,21 @@
                     </a>
                 </td>
                 <td>
-                    <p>test@gmail.com</p>
+                    <p>{{ $account->email }}</p>
                 </td>
                 <td>
-                    <p>09012345678</p>
+                    <p>{{ $account->tel }}</p>
                 </td>
                 <td>
-                    <p>一般</p>
+                    <p>{{ config("curriclum.role.${userRole}") }}</p>
                 </td>
                 <td>
-                    <a href={{route('account.edit')}}><button class="btn">編集</button></a>
+                    <a href={{route("account.edit", ['id' => $id])}}><button class="btn">編集</button></a>
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
+    {{ $accounts->links() }}
 </div>
-{{ $accounts->links() }}
 @endsection
