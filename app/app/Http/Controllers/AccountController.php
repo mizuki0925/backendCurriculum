@@ -38,8 +38,9 @@ class AccountController extends Controller
         }
         return view('account/index');
     }
-    public function edit()
+    public function edit($id)
     {
+        dd($id);
         return view('account/edit');
     }
 
