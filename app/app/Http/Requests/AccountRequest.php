@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use App\Models\Account;
 
 class AccountRequest extends FormRequest
 {
@@ -13,8 +15,7 @@ class AccountRequest extends FormRequest
      */
     public function authorize()
     {
-        // return false;
-        // 実装時にtrue
+
         return true;
     }
 
@@ -25,13 +26,21 @@ class AccountRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => 'required|max:255',
-            'password' => 'required|max:255',
-            'email' => 'required|max:255|unique:accounts',
-            'tel' => 'max:20',
-            'role' => 'integer|max:2'
-        ];
+        if ($this->has('update')) {
+            return [
+                'name' => 'required|max:255',
+                'password' => 'required|max:255',
+                'email' => [
+                    'required',
+                    'max:255',
+                    Rule::unique('accounts')->ignore($this->id)
+                ],
+                'tel' => 'max:20',
+                'role' => 'integer|max:2'
+            ];
+        } else {
+            return [];
+        }
     }
 
     public function attributes()

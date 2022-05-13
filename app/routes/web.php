@@ -29,7 +29,10 @@ Route::group(['prefix' => 'account', 'as' => 'account.', 'middleware' => 'login'
     Route::get('/regist', [AccountController::class, 'regist'])->name('regist');
     Route::post('/add', [AccountController::class, 'add'])->name('add');
     Route::get('/edit/{id}', [AccountController::class, 'edit'])->name('edit');
-    Route::get('/spec', [AccountController::class, 'spec'])->name('spec');
+    Route::post('/update', [AccountController::class, 'update'])->name('update');
+    Route::post('/delete', [AccountController::class, 'delete'])->name('delete');
+    Route::post('/csv', [AccountController::class, 'csvDownlord'])->name('csv');
+    Route::get('/spec/{id}', [AccountController::class, 'spec'])->name('spec');
 });
 Route::group(['prefix' => 'property', 'as' => 'property.'], function () {
     Route::get('/', [PropertyController::class, 'index'])->name('index');

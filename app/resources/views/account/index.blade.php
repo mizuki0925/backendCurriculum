@@ -6,7 +6,10 @@
         <h1>アカウント一覧画面</h1>
         <div>
             <a href={{route('account.regist')}}><button class="btn">登録する</button></a>
-            <a href="#"><button class="btn">CSV出力</button></a>
+            <form method="POST" action={{route('account.csv')}}>
+                @csrf
+                <button class="btn">CSV出力</button>
+            </form>
         </div>
     </div>
     <table class="aView">
@@ -29,11 +32,10 @@
             @foreach ($accounts as $account)
             <?php
             $userRole = $account->role;
-            $id = $account->id;
             ?>
             <tr>
                 <td>
-                    <a href={{route('account.spec')}}>
+                    <a href={{route('account.spec', ['id' => $account->id])}}>
                         <p>{{ $account->name }}</p>
                     </a>
                 </td>
@@ -47,7 +49,7 @@
                     <p>{{ config("curriclum.role.${userRole}") }}</p>
                 </td>
                 <td>
-                    <a href={{route("account.edit", ['id' => $id])}}><button class="btn">編集</button></a>
+                    <a href={{route("account.edit", ['id' => $account->id])}}><button class="btn">編集</button></a>
                 </td>
             </tr>
             @endforeach

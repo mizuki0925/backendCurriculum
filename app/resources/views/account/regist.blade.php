@@ -33,8 +33,9 @@
                 <div class="arrow-down">
                     <select name="role">
                         <option>選択してください</option>
-                        <option value=2>一般</option>
-                        <option value=1>管理者</option>
+                        @foreach(config("curriclum.role") as $key => $value)
+                        <option value={{$key}}>{{$value}}</option>
+                        @endforeach
                     </select>
                     {{ $errors->first('role')}}
                 </div>

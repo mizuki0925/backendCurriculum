@@ -3,42 +3,53 @@
 @section('content')
 <div class="inner1000 content">
     <h1>アカウント編集画面</h1>
-    <form>
+    <form method="POST" action={{route('account.update')}}>
+        @csrf
         <div class="flex entry">
             <div>
                 <label>アカウント名</label>
-                <input type="text" placeholder="例）テスト名">
+                <input type="text" name="name" value={{ $account->name }}>
+                {{ $errors->first('name')}}
             </div>
             <div>
                 <label>メールアドレス</label>
                 <div>
-                    <input type="text" placeholder="例）test@gmail.com">
+                    <input type="email" name="email" value={{ $account->email }}>
+                    {{ $errors->first('email')}}
                 </div>
             </div>
             <div>
                 <label>パスワード</label>
-                <input type="text" placeholder="例）himitsu007">
+                <input type="text" name="password" value="">
+                {{ $errors->first('password')}}
             </div>
             <div>
                 <label>電話番号</label>
-                <input type="text" placeholder="例）07012345678">
+                <input type="text" name="tel" value={{ $account->tel }}>
+                {{ $errors->first('tel')}}
             </div>
             <div>
                 <label>権限</label>
                 <div class="arrow-down">
-                    <select>
-                        <option>選択してください</option>
-                        <option>一般</option>
-                        <option>管理者</option>
+                    <select name="role" selected>
+                        @foreach(config("curriclum.role") as $key => $value)
+                        @if($key === $account->role)
+                        <option value={{$key}} selected>{{$value}}</option>
+                        @else
+                        <option value={{$key}}>{{$value}}</option>
+                        @endif
+                        @endforeach
                     </select>
+                    {{ $errors->first('role')}}
                 </div>
             </div>
         </div>
         <div class="flex btns">
-            <a href={{route('account.index')}} class="btn">戻る</a>
+            <a href={{route('account.index')}} class="btn" name="back">戻る</a>
             <div>
-                <button class="btn">保存する</button>
-                <button class="btn">削除する</button>
+                <input type="hidden" name="id" value={{ $account->id }}>
+                <button class="btn" name="update">保存する</button>
+                <button class="btn" name="delete">削除する</button>
             </div>
         </div>
     </form>
