@@ -34,7 +34,7 @@ Route::group(['prefix' => 'account', 'as' => 'account.', 'middleware' => 'login'
     Route::post('/csv', [AccountController::class, 'csvDownlord'])->name('csv');
     Route::get('/spec/{id}', [AccountController::class, 'spec'])->name('spec');
 });
-Route::group(['prefix' => 'property', 'as' => 'property.'], function () {
+Route::group(['prefix' => 'property', 'as' => 'property.', 'middleware' => 'login'], function () {
     Route::get('/', [PropertyController::class, 'index'])->name('index');
     Route::get('/regist', [PropertyController::class, 'regist'])->name('regist');
     Route::get('/edit', [PropertyController::class, 'edit'])->name('edit');
