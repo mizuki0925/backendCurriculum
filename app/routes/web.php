@@ -37,7 +37,9 @@ Route::group(['prefix' => 'account', 'as' => 'account.', 'middleware' => 'login'
 Route::group(['prefix' => 'property', 'as' => 'property.', 'middleware' => 'login'], function () {
     Route::get('/', [PropertyController::class, 'index'])->name('index');
     Route::get('/regist', [PropertyController::class, 'regist'])->name('regist');
-    Route::get('/edit', [PropertyController::class, 'edit'])->name('edit');
+    Route::get('/edit/{id}', [PropertyController::class, 'edit'])->name('edit');
+    Route::post('/update', [PropertyController::class, 'update'])->name('update');
+    Route::post('/delete', [PropertyController::class, 'delete'])->name('delete');
     Route::get('/spec', [PropertyController::class, 'spec'])->name('spec');
 });
 

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Account;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Realestate extends Model
@@ -21,10 +22,7 @@ class Realestate extends Model
 
     public function accounts()
     {
-        return $this->belongsTo(Account::class);
+        return $this->belongsTo(Account::class, 'account_id');
     }
 
-    public function scopeSearch($query)
-    {
-    }
 }

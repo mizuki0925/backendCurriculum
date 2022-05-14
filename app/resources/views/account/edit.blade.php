@@ -31,7 +31,7 @@
             <div>
                 <label>権限</label>
                 <div class="arrow-down">
-                    <select name="role" selected>
+                    <select name="role">
                         @foreach(config("curriclum.role") as $key => $value)
                         @if($key === $account->role)
                         <option value={{$key}} selected>{{$value}}</option>

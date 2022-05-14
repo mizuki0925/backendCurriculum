@@ -26,7 +26,9 @@ class AccountRequest extends FormRequest
      */
     public function rules()
     {
-        if ($this->has('update')) {
+        if ($this->has('delete')) {
+            return [];
+        } else {
             return [
                 'name' => 'required|max:255',
                 'password' => 'required|max:255',
@@ -38,8 +40,6 @@ class AccountRequest extends FormRequest
                 'tel' => 'max:20',
                 'role' => 'integer|max:2'
             ];
-        } else {
-            return [];
         }
     }
 

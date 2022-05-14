@@ -30,7 +30,7 @@ class RealestateFactory extends Factory
             'breadth' => $this->faker->numberBetween(10, 50),
             'floor_plan' => $floor_plan[rand(0, 10)],
             'tenancy_status' => $this->faker->numberBetween(1, 3),
-            'user_id' => Account::factory(),
+            'account_id' => Account::factory(),
             'created_at' => new DateTime(),
             'updated_at' => new DateTime()
         ];

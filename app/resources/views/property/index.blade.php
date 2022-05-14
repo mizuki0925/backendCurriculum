@@ -35,160 +35,40 @@
                     <p>入居状況</p>
                 </td>
                 <td>
-                    <p>物件登録者</p>
+                    <p>物件最終更新者</p>
                 </td>
                 <td></td>
             </tr>
+            @foreach ($propertys as $property)
+            <?php
+            $status = $property->tenancy_status;
+            ?>
             <tr>
                 <td>
-                    <a href={{route('property.spec')}}>
-                        <p>テスト名</p>
+                    <a href={{ route('property.spec') }}>
+                        <p>{{ $property->name }}</p>
                     </a>
                 </td>
                 <td>
-                    <p>テスト住所</p>
+                    <p>{{ $property->adress }}</p>
                 </td>
                 <td>
-                    <p>10㎡</p>
+                    <p>{{ $property->breadth }}㎡</p>
                 </td>
                 <td>
-                    <p>3LDK</p>
+                    <p>{{ $property->floor_plan }}</p>
                 </td>
                 <td>
-                    <p>満室</p>
+                    <p>{{ config("curriclum.tenancyStatus.${status}") }}</p>
                 </td>
                 <td>
-                    <p>テストユーザー</p>
+                    <p>{{ $property->accounts->name }}</p>
                 </td>
                 <td>
-                    <a href={{route('property.edit')}}><button class="btn">編集</button></a>
+                    <a href={{route('property.edit', ['id' => $property->id])}}><button class="btn">編集</button></a>
                 </td>
             </tr>
-            <tr>
-                <td>
-                    <a href={{route('property.spec')}}>
-                        <p>テスト名</p>
-                    </a>
-                </td>
-                <td>
-                    <p>テスト住所</p>
-                </td>
-                <td>
-                    <p>10㎡</p>
-                </td>
-                <td>
-                    <p>3LDK</p>
-                </td>
-                <td>
-                    <p>満室</p>
-                </td>
-                <td>
-                    <p>テストユーザー</p>
-                </td>
-                <td>
-                    <a href={{route('property.edit')}}><button class="btn">編集</button></a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href={{route('property.spec')}}>
-                        <p>テスト名</p>
-                    </a>
-                </td>
-                <td>
-                    <p>テスト住所</p>
-                </td>
-                <td>
-                    <p>10㎡</p>
-                </td>
-                <td>
-                    <p>3LDK</p>
-                </td>
-                <td>
-                    <p>満室</p>
-                </td>
-                <td>
-                    <p>テストユーザー</p>
-                </td>
-                <td>
-                    <a href={{route('property.edit')}}><button class="btn">編集</button></a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href={{route('property.spec')}}>
-                        <p>テスト名</p>
-                    </a>
-                </td>
-                <td>
-                    <p>テスト住所</p>
-                </td>
-                <td>
-                    <p>10㎡</p>
-                </td>
-                <td>
-                    <p>3LDK</p>
-                </td>
-                <td>
-                    <p>満室</p>
-                </td>
-                <td>
-                    <p>テストユーザー</p>
-                </td>
-                <td>
-                    <a href={{route('property.edit')}}><button class="btn">編集</button></a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href={{route('property.spec')}}>
-                        <p>テスト名</p>
-                    </a>
-                </td>
-                <td>
-                    <p>テスト住所</p>
-                </td>
-                <td>
-                    <p>10㎡</p>
-                </td>
-                <td>
-                    <p>3LDK</p>
-                </td>
-                <td>
-                    <p>満室</p>
-                </td>
-                <td>
-                    <p>テストユーザー</p>
-                </td>
-                <td>
-                    <a href={{route('property.edit')}}><button class="btn">編集</button></a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href={{route('property.spec')}}>
-                        <p>テスト名</p>
-                    </a>
-                </td>
-                <td>
-                    <p>テスト住所</p>
-                </td>
-                <td>
-                    <p>10㎡</p>
-                </td>
-                <td>
-                    <p>3LDK</p>
-                </td>
-                <td>
-                    <p>満室</p>
-                </td>
-                <td>
-                    <p>テストユーザー</p>
-                </td>
-                <td>
-                    <a href={{route('property.edit')}}><button class="btn">編集</button></a>
-                </td>
-            </tr>
+            @endforeach
         </tbody>
     </table>
 </div>

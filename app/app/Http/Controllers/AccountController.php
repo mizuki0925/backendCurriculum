@@ -63,8 +63,6 @@ class AccountController extends Controller
         } catch (\Throwable $th) {
             return back()->with('flashMessage', 'アカウントの更新に失敗しました');
         }
-
-
         return view('account/edit', compact('account'));
     }
 

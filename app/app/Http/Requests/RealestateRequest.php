@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RelestateRequest extends FormRequest
+class RealestateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class RelestateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
         // 実装時にtrue
         // return true;
     }
@@ -25,15 +25,17 @@ class RelestateRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => 'required|max:255',
-            'adress' => 'required|max:255',
-            'breadth' => 'integer',
-            'floor_plan' => 'max:255',
-            'tenancy_status' => 'integer|max:3',
-            'user_id' => 'required|integer'
-
-        ];
+        if ($this->has('delete')) {
+            return [];
+        } else {
+            return [
+                'name' => 'required|max:255',
+                'adress' => 'required|max:255',
+                'breadth' => 'integer',
+                'floor_plan' => 'max:255',
+                'tenancy_status' => 'integer|max:3'
+            ];
+        }
     }
 
     public function attributes()
@@ -44,7 +46,7 @@ class RelestateRequest extends FormRequest
             'breadth' => '広さ',
             'floor_plan' => '間取り',
             'tenancy_status' => '入居状況',
-            'user_id' => '物件登録者',
+            'account_id' => '物件登録者',
             'created_at' => '作成日時',
             'updated_at' => '更新日時'
         ];
