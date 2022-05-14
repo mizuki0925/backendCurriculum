@@ -1,29 +1,32 @@
 @extends('layouts.header')
 @section('title', '物件詳細')
 @section('content')
+<?php
+$status = $property->tenancy_status;
+?>
 <div class="inner1000 content">
     <h1>物件詳細画面</h1>
     <form>
         <div class="flex entry spec">
             <div>
                 <label>物件名</label>
-                <p>テスト物件名</p>
+                <p>{{ $property->name }}</p>
             </div>
             <div>
                 <label>広さ</label>
-                <p class="prop-unit">30</p>
+                <p class="prop-unit">{{ $property->breadth }}</p>
             </div>
             <div>
                 <label>住所</label>
-                <p>東京都渋谷区〇〇1−1−1</p>
+                <p>{{ $property->adress }}</p>
             </div>
             <div>
                 <label>間取り</label>
-                <p>3LDK</p>
+                <p>{{ $property->floor_plan }}</p>
             </div>
             <div>
                 <label>入居状況</label>
-                <p>満室</p>
+                <p>{{ config("curriclum.tenancyStatus.${status}") }}</p>
             </div>
         </div>
         <div class="flex btns">

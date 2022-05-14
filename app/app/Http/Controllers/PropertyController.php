@@ -81,8 +81,9 @@ class PropertyController extends Controller
         }
     }
 
-    public function spec()
+    public function spec($id)
     {
-        return view('property/spec');
+        $property = Realestate::find($id);
+        return view('property/spec', compact('property'));
     }
 }

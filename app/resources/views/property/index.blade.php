@@ -45,7 +45,7 @@
             ?>
             <tr>
                 <td>
-                    <a href={{ route('property.spec') }}>
+                    <a href={{route('property.spec', ['id' => $property->id])}}>
                         <p>{{ $property->name }}</p>
                     </a>
                 </td>
