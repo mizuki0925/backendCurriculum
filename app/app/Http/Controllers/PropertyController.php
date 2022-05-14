@@ -86,4 +86,45 @@ class PropertyController extends Controller
         $property = Realestate::find($id);
         return view('property/spec', compact('property'));
     }
+
+    public function csvDownlord()
+    {
+        $headers = [
+            'Content-type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename=propertys.csv',
+            'Pragma' => 'no-cache',
+            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
+            'Expires' => '0',
+        ];
+        $callback = function () {
+            $file = fopen('php://output', 'w');
+            $propertys = Realestate::orderBy('id', 'desc')->get();
+            $columns = [
+                'ＩＤ',
+                '物件名',
+                '住所',
+                '広さ',
+                '間取り',
+                '入居状況'
+            ];
+            mb_convert_variables('SJIS', 'UTF-8', $columns);
+            // カラムを書き込み
+            fputcsv($file, $columns);
+            foreach ($propertys as $property) {
+                $data = [
+                    $property->id,
+                    $property->name,
+                    $property->adress,
+                    $property->breadth,
+                    $property->floor_plan,
+                    config("curriclum.tenancyStatus.$property->tenancy_status")
+                ];
+                mb_convert_variables('SJIS-win', 'UTF-8', $data);
+                // データを書き込み
+                fputcsv($file, $data);
+            }
+            fclose($file);
+        };
+        return response()->stream($callback, 200, $headers);
+    }
 }

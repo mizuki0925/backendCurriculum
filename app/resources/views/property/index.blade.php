@@ -13,7 +13,10 @@
         <h1>物件一覧画面</h1>
         <div>
             <a href={{route('property.regist')}}><button class="btn">登録する</button></a>
-            <a href="#"><button class="btn">CSV出力</button></a>
+            <form method="POST" action={{route('property.csv')}}>
+                @csrf
+                <button class="btn">CSV出力</button>
+            </form>
         </div>
     </div>
     <table class="pView">

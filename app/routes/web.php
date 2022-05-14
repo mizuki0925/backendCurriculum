@@ -41,7 +41,8 @@ Route::group(['prefix' => 'property', 'as' => 'property.', 'middleware' => 'logi
     Route::get('/edit/{id}', [PropertyController::class, 'edit'])->name('edit');
     Route::post('/update', [PropertyController::class, 'update'])->name('update');
     Route::post('/delete', [PropertyController::class, 'delete'])->name('delete');
-    Route::get('/spec', [PropertyController::class, 'spec'])->name('spec');
+    Route::post('/csv', [PropertyController::class, 'csvDownlord'])->name('csv');
+    Route::get('/spec/{id}', [PropertyController::class, 'spec'])->name('spec');
 });
 
 require __DIR__ . '/auth.php';
