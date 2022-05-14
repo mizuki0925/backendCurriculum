@@ -17,7 +17,8 @@ class Realestate extends Model
         'adress',
         'breadth',
         'floor_plan',
-        'tenancy_status'
+        'tenancy_status',
+        'account_id'
     ];
 
     public function accounts()

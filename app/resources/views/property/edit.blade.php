@@ -14,7 +14,7 @@
             <div>
                 <label>広さ</label>
                 <div class="prop-unit">
-                    <input type="text" name="breadth" value={{ $property->breadth }}>
+                    <input type="number" name="breadth" value={{ $property->breadth }}>
                     {{ $errors->first('breadth')}}
                 </div>
             </div>

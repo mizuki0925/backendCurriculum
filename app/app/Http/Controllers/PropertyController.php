@@ -23,6 +23,24 @@ class PropertyController extends Controller
         return view('property/regist');
     }
 
+    public function add(RealestateRequest $request)
+    {
+        try {
+            $property = new Realestate();
+            $property->create([
+                'name' => $request->name,
+                'breadth' => $request->breadth,
+                'adress' => $request->adress,
+                'floor_plan' => $request->floor_plan,
+                'tenancy_status' => $request->tenancy_status,
+                'account_id' => Auth::id()
+            ]);
+            return redirect('property')->with('flashMessage', '物件の登録が完了しました');
+        } catch (\Throwable $th) {
+            return back()->with('flashMessage', '物件の登録に失敗しました');
+        }
+    }
+
     public function edit($id)
     {
         $property = Realestate::find($id);
