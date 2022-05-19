@@ -26,4 +26,13 @@ class Realestate extends Model
         return $this->belongsTo(Account::class, 'account_id');
     }
 
+    public function scopeNames($query, $name)
+    {
+        return $query->where('name', 'like', "%$name%");
+    }
+
+    public function scopeAdresss($query, $adress)
+    {
+        return $query->where('adress', 'like', "%$adress%");
+    }
 }

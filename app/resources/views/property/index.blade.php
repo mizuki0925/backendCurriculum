@@ -2,9 +2,9 @@
 @section('title', '物件一覧')
 @section('content')
 <div class="inner1000 content">
-    <form action="">
-        <input class="form-search" type="text" placeholder="物件名">
-        <input class="form-search" type="text" placeholder="住所">
+    <form method="GET" action={{route('property.index')}}>
+        <input class="form-search" type="text" name="name" placeholder="物件名" value="{{ session()->get('name') }}">
+        <input class="form-search" type="text" name="adress" placeholder="住所" value="{{ session()->get('adress') }}">
         <div align="right">
             <button class="form-search btn">検索する</button>
         </div>
@@ -74,5 +74,6 @@
             @endforeach
         </tbody>
     </table>
+    {{ $propertys->appends(request()->input())->links() }}
 </div>
 @endsection
