@@ -48,9 +48,13 @@
                 <td>
                     <p>{{ config("curriclum.role.${userRole}") }}</p>
                 </td>
+
                 <td>
+                    @can('isAdmin')
                     <a href={{route("account.edit", ['id' => $account->id])}}><button class="btn">編集</button></a>
+                    @endcan
                 </td>
+
             </tr>
             @endforeach
         </tbody>

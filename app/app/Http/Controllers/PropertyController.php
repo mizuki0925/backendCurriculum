@@ -11,10 +11,30 @@ use Illuminate\Support\Facades\Auth;
 
 class PropertyController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // $propertys = Realestate::join('accounts', 'realestates.user_id', '=', 'accounts.id')->paginate(10);
-        $propertys = Realestate::with('accounts')->orderBy('id', 'desc')->paginate(10);
+        // セッションをリセット
+        $request->session()->forget('name');
+        $request->session()->forget('adress');
+        // 検索条件を保存
+        $searchList = [];
+        $searchList["name"] = $request->name;
+        $searchList["adress"] = $request->adress;
+        // 検索条件が無い場合全検索
+        if (empty($searchList["name"]) && empty($searchList["adress"])) {
+            $propertys = Realestate::with('accounts')
+                ->orderBy('id', 'desc')
+                ->paginate(10);
+        } else {
+            // 検索条件がある場合部分一致検索
+            $request->session()->put('name', $searchList["name"]);
+            $request->session()->put('adress', $searchList["adress"]);
+            $propertys = Realestate::with('accounts')
+                ->names($request->name)
+                ->adresss($request->adress)
+                ->orderBy('id', 'desc')
+                ->paginate(10);
+        }
         return view('property/index', compact('propertys'));
     }
 
