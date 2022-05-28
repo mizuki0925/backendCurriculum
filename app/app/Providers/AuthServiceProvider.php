@@ -23,8 +23,11 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // 1 = 管理者、2 = 一般
         $this->registerPolicies();
+        Gate::define('isAdmin', function ($user) {
 
-        //
+            return $user->role == 1;
+        });
     }
 }

@@ -29,6 +29,7 @@
                 {{ $errors->first('tel')}}
             </div>
             <div>
+                @can('isAdmin')
                 <label>権限</label>
                 <div class="arrow-down">
                     <select name="role">
@@ -42,6 +43,10 @@
                     </select>
                     {{ $errors->first('role')}}
                 </div>
+                @else
+                <label>権限</label>
+                <div>{{ config("curriclum.role.$account->role") }}</div>
+                @endcan
             </div>
         </div>
         <div class="flex btns">

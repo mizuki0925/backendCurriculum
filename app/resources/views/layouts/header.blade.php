@@ -27,7 +27,9 @@
                 </div>
                 <div class="flex">
                     <div>
-                        <small>アカウント名：{{Auth::user()->name}}</small>
+                        <small>アカウント名：
+                            <a href={{route("account.edit", ['id' => Auth::id()])}}>{{Auth::user()->name}}</a>
+                        </small>
                         <small>権限名：{{config("curriclum.role.${role}")}}</small>
                     </div>
                     <a href={{route('account.logout')}}>ログアウト</a>
