@@ -27,7 +27,7 @@ class AccountFactory extends Factory
         // $jpTime->setTimeZone(new DateTimeZone('Asia/Tokyo'));
         return [
             'name' => $this->faker->name,
-            'password' => Hash::make('$this->faker->password'),
+            'password' => Hash::make('testtest'),
             'email' => $this->faker->safeEmail,
             'tel' => $this->faker->phoneNumber,
             'role' => $this->faker->numberBetween(1, 2),
@@ -36,3 +36,4 @@ class AccountFactory extends Factory
         ];
     }
 }
+
