@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use App\Models\Account;
+use App\Policies\AccountPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -12,8 +14,10 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @var array<class-string, class-string>
      */
+
+    //AccountモデルとAccountPolicyの紐付け
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        Account::class => AccountPolicy::class,
     ];
 
     /**
@@ -23,11 +27,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // 1 = 管理者、2 = 一般
         $this->registerPolicies();
-        Gate::define('isAdmin', function ($user) {
 
-            return $user->role == 1;
-        });
+        //
     }
 }

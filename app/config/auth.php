@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'users',
+        'passwords' => 'accounts',
     ],
 
     /*
@@ -36,22 +36,9 @@ return [
     */
 
     'guards' => [
-        'login' => [
-            'driver' => 'session',
-            'provider' => 'accounts',
-        ],
-        // 'web' => [
-        //     'driver' => 'session',
-        //     'provider' => 'users',
-        // ],
         'web' => [
             'driver' => 'session',
             'provider' => 'accounts',
-        ],
-        'api' => [
-            'driver' => 'token',
-            'provider' => 'accounts',
-            'hash' => false,
         ],
     ],
 
@@ -77,11 +64,6 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Account::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*

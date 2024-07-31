@@ -1,3 +1,4 @@
 <?PHP
-echo "TOP画面";
+    echo "Hello World";
+    echo "こんばんわ";
 ?>

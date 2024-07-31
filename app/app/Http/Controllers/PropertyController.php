@@ -2,149 +2,226 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Account;
 use App\Models\Realestate;
-use PhpParser\Builder\Property;
-use App\Http\Requests\RealestateRequest;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
+use App\Http\Requests\RealestateCreateRequest;
+use App\Http\Requests\RealestateUpdateRequest;
+use App\Services\PropertyService;
+use App\Traits\UserRoleTrait;
+use App\Traits\TenancyStatusTrait;
+use Illuminate\View\View;
 
 class PropertyController extends Controller
 {
-    public function index(Request $request)
+    //トレイトを使用する
+    use UserRoleTrait;
+    use TenancyStatusTrait;
+
+    private $propertyService;
+
+    public function __construct(PropertyService $propertyService)
     {
-        // セッションをリセット
-        $request->session()->forget('name');
-        $request->session()->forget('adress');
-        // 検索条件を保存
-        $searchList = [];
-        $searchList["name"] = $request->name;
-        $searchList["adress"] = $request->adress;
-        // 検索条件が無い場合全検索
-        if (empty($searchList["name"]) && empty($searchList["adress"])) {
-            $propertys = Realestate::with('accounts')
-                ->orderBy('id', 'desc')
-                ->paginate(10);
-        } else {
-            // 検索条件がある場合部分一致検索
-            $request->session()->put('name', $searchList["name"]);
-            $request->session()->put('adress', $searchList["adress"]);
-            $propertys = Realestate::with('accounts')
-                ->names($request->name)
-                ->adresss($request->adress)
-                ->orderBy('id', 'desc')
-                ->paginate(10);
-        }
-        return view('property/index', compact('propertys'));
+        $this->propertyService = $propertyService;
     }
 
+    // TODO:②サービス層
+    //
+    /**
+     * 物件一覧画面
+     *
+     * @param Request $request
+     * @return View
+     */
+    public function index(Request $request): View
+    {
+        $response = [];
+
+        // パターン①
+        // propertyServiceをインスタンス化
+        // $propertyService = new PropertyService;
+        // $propertyService->indexExec($request);
+
+        // パターン②
+        $response = $this->propertyService->indexExec($request);
+
+        return view('property/index', $response);
+
+
+        // 現行の処理
+        // // ログインユーザーを取得
+        // $user = Auth::user();
+        // // ログインユーザーの権限名を取得
+        // $role = $this->getUserRole();
+
+        // // 物件情報の検索クエリを作成
+        // $query = Realestate::query();
+
+        // // 物件名のキーワード検索
+        // $name = $request->input('name');
+        // if ($name) {
+        //     $query->where('name', 'LIKE', "%{$name}%");
+        // }
+
+        // // 住所のキーワード検索
+        // $address = $request->input('address');
+        // if ($address) {
+        //     $query->Where('address', 'LIKE', "%{$address}%");
+        // }
+
+        // // 全物件情報とアカウント情報を取得し、ページネーションを適用
+        // $realestates = $query->with('account')->paginate(10);
+        // // 入居状況のフォーマットを取得
+        // $realestates = $this->formatTenancyStatus($realestates);
+
+        // return view('property/index', [
+        //     'user' => $user,
+        //     'role' => $role,
+        //     'realestates' => $realestates,
+        //     'name' => $name,
+        //     'address' => $address,
+        // ]);
+    }
+
+    // 物件新規登録画面表示
     public function regist()
     {
-        return view('property/regist');
+        // ログインユーザーを取得
+        $user = Auth::user();
+        // ログインユーザーの権限名を取得
+        $role = $this->getUserRole();
+
+        return view('property/regist', [
+            'user' => $user,
+            'role' => $role,
+        ]);
     }
 
-    public function add(RealestateRequest $request)
+    // TODO:②登録処理の場合
+    // 物件新規登録処理
+    public function create(RealestateCreateRequest $request)
     {
-        try {
-            $property = new Realestate();
-            $property->create([
-                'name' => $request->name,
-                'breadth' => $request->breadth,
-                'adress' => $request->adress,
-                'floor_plan' => $request->floor_plan,
-                'tenancy_status' => $request->tenancy_status,
-                'account_id' => Auth::id()
+        $data = $request->validated();
+        $result = $this->propertyService->createExec($data);
+
+        // TODO:②現行処理では、メッセージの表示はなし？フラッシュメッセージで表示するのがよし。
+        if ($result) {
+            // 登録成功時
+            return redirect()->route('property.index')->with([
+                'success' => 'アカウントを登録しました',
             ]);
-            return redirect('property')->with('flashMessage', '物件の登録が完了しました');
-        } catch (\Throwable $th) {
-            return back()->with('flashMessage', '物件の登録に失敗しました');
+        } else {
+            /// 登録失敗時
+            return back()->with('error', 'アカウント登録が失敗しました');
         }
+
+        // 現行の処理
+        // ログインユーザーを取得
+        // $user = Auth::user();
+        // // データを取得
+        // $data = $request->validated();
+
+        // // 登録内容をデータベースに作成
+        // $realestate = Realestate::create([
+        //     'name' => $data['name'],
+        //     'address' => $data['address'],
+        //     'breadth' => $data['breadth'],
+        //     'floor_plan' => $data['floor_plan'],
+        //     'tenancy_status' => $data['tenancy_status'],
+        //     'account_id' => $user->id,
+        // ]);
+
+        // // 登録が成功したらリダイレクトする
+        // return redirect()->route('property.index')->with([
+        //     'success' => 'アカウントを登録しました',
+        // ]);
     }
 
-    public function edit($id)
+    // 物件編集画面表示
+    public function edit($realestateId)
     {
-        $property = Realestate::find($id);
-        return view('property/edit', compact('property'));
+        $realestate = Realestate::with('account')->find($realestateId);
+
+        // ログインユーザーを取得
+        $user = Auth::user();
+        // ログインユーザーの権限名を取得
+        $role = $this->getUserRole();
+
+        return view('property/edit', compact('realestate', 'user', 'role'));
     }
 
-    public function update(RealestateRequest $request)
+    // 物件更新
+    // TODO:②関数名の書き方、統一すること
+    public function Update(realestateUpdateRequest $request, $realestateId)
     {
-        if ($request->has('delete')) {
-            return $this->delete($request);
-        }
-        try {
-            $property = Realestate::find($request->id);
-            $property->update([
-                'name' => $request->name,
-                'breadth' => $request->breadth,
-                'adress' => $request->adress,
-                'floor_plan' => $request->floor_plan,
-                'tenancy_status' => $request->tenancy_status,
-                'account_id' => Auth::id()
-            ]);
-            return redirect("property/edit/$property->id")->with('flashMessage', '物件の更新が完了しました');
-        } catch (\Throwable $th) {
-            return back()->with('flashMessage', '物件の更新に失敗しました');
-        }
-        return view('property/edit', compact('property'));
+        $data = $request->validated();
+        $realestate = Realestate::find($realestateId);
+
+        $realestate->update([
+            'name' => $data['name'] ?? $realestate->name,
+            'address' => $data['address'] ?? $realestate->address,
+            'breadth' => $data['breadth'] ?? $realestate->breadth,
+            'floor_plan' => $data['floor_plan'] ?? $realestate->floor_plan,
+            'tenancy_status' => $data['tenancy_status'] ?? $realestate->tenancy_status,
+        ]);
+
+        $realestate->save();
+        return redirect()->route('property.index')->with([
+            'success' => '物件が更新されました',
+        ]);
     }
 
-    public function delete(Request $request)
+    // 物件詳細
+    public function spec($realestateId)
     {
-        // 削除処理
-        try {
-            $account = Realestate::find($request->id);
-            $account->delete();
-            return redirect("property")->with('flashMessage', '物件の削除が完了しました');
-        } catch (\Throwable $th) {
-            return back()->with('flashMessage', '物件の削除に失敗しました');
-        }
+        // ログインユーザーを取得
+        $user = Auth::user();
+        // ログインユーザーの権限名を取得
+        $role = $this->getUserRole();
+
+        // 物件情報を取得
+        $realestate = Realestate::find($realestateId);
+        // 入居状況のフォーマットを取得
+        $this->formatTenancyStatus([$realestate]);
+
+        return view('property/spec', compact('realestate', 'user', 'role'));
     }
 
-    public function spec($id)
+    // 物件情報削除
+    public function delete($realestateId)
     {
-        $property = Realestate::find($id);
-        return view('property/spec', compact('property'));
+        $realestate = Realestate::find($realestateId);
+        $realestate->delete();
+
+        return redirect()->route('property.index')->with([
+            'success' => '物件を削除しました',
+        ]);
     }
 
-    public function csvDownlord()
+    // CSV出力
+    public function downloadCsv()
     {
-        $headers = [
-            'Content-type' => 'text/csv',
-            'Content-Disposition' => 'attachment; filename=propertys.csv',
-            'Pragma' => 'no-cache',
-            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
-            'Expires' => '0',
-        ];
-        $callback = function () {
+        $realestate = Realestate::all();
+        $csvHeader = ['id', '物件名', '住所', '広さ', '間取り', '入居状況', '物件登録者', 'created_at', 'updated_at'];
+        $csvData = $realestate->toArray();
+
+        $callback = function () use ($csvHeader, $csvData) {
             $file = fopen('php://output', 'w');
-            $propertys = Realestate::orderBy('id', 'desc')->get();
-            $columns = [
-                'ＩＤ',
-                '物件名',
-                '住所',
-                '広さ',
-                '間取り',
-                '入居状況'
-            ];
-            mb_convert_variables('SJIS', 'UTF-8', $columns);
-            // カラムを書き込み
-            fputcsv($file, $columns);
-            foreach ($propertys as $property) {
-                $data = [
-                    $property->id,
-                    $property->name,
-                    $property->adress,
-                    $property->breadth,
-                    $property->floor_plan,
-                    config("curriclum.tenancyStatus.$property->tenancy_status")
-                ];
-                mb_convert_variables('SJIS-win', 'UTF-8', $data);
-                // データを書き込み
-                fputcsv($file, $data);
+            fputcsv($file, $csvHeader);
+
+            foreach ($csvData as $row) {
+                fputcsv($file, $row);
             }
+
             fclose($file);
         };
-        return response()->stream($callback, 200, $headers);
+
+        return Response::streamDownload($callback, 'realestate.csv', [
+            'Content-Type' => 'text/csv',
+        ]);
     }
 }

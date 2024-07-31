@@ -2,10 +2,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Account;
-use DateTime;
-use DateTimeZone;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 
 /**
@@ -13,8 +11,12 @@ use Illuminate\Support\Facades\Hash;
  */
 class AccountFactory extends Factory
 {
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
     protected $model = Account::class;
-
 
     /**
      * Define the model's default state.
@@ -23,17 +25,12 @@ class AccountFactory extends Factory
      */
     public function definition()
     {
-        // $jpTime = new DateTime();
-        // $jpTime->setTimeZone(new DateTimeZone('Asia/Tokyo'));
         return [
-            'name' => $this->faker->name,
-            'password' => Hash::make('testtest'),
-            'email' => $this->faker->safeEmail,
-            'tel' => $this->faker->phoneNumber,
-            'role' => $this->faker->numberBetween(1, 2),
-            'created_at' => new DateTime(),
-            'updated_at' => new DateTime()
+            'name' => $this->faker->name(), //"trest111",
+            'password' => Hash::make('password'),
+            'email' => $this->faker->unique()->safeEmail(),
+            'tel' => '09012345678',
+            'role' => 1,
         ];
     }
 }
-

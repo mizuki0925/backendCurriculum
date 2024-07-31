@@ -1,44 +1,37 @@
 @charset "UTF-8";
-
 body {
 	font-family: "Helvetica Neue",
-		Arial,
-		"Hiragino Kaku Gothic ProN",
-		"Hiragino Sans",
-		Meiryo,
-		sans-serif;
+	  Arial,
+	  "Hiragino Kaku Gothic ProN",
+	  "Hiragino Sans",
+	  Meiryo,
+	  sans-serif;
 }
-
 /* ====================
 	component
 ==================== */
 .inner1000 {
-	max-width: 1000px;
-	margin: auto;
+    max-width: 1000px;
+    margin: auto;
 	padding: 0 15px;
 }
-
 .inner400 {
-	max-width: 600px;
-	margin: auto;
+    max-width: 600px;
+    margin: auto;
 	padding: 0 15px;
 }
-
 .content {
 	position: relative;
 	margin: 50px auto 150px;
 }
-
 .flex {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 }
-
 .block {
 	display: block;
 }
-
 input,
 textarea,
 select {
@@ -49,19 +42,15 @@ select {
 	border-radius: 5px;
 	border: solid 1px #ccc;
 }
-
 ::-webkit-input-placeholder {
 	color: #d3d3d3;
 }
-
 :-ms-input-placeholder {
 	color: #d3d3d3;
 }
-
-::placeholder {
+::placeholder{
 	color: #d3d3d3;
 }
-
 .btn {
 	padding: 5px 20px;
 	color: #fff;
@@ -71,14 +60,12 @@ select {
 	border: solid 1px #2ecc87;
 	background-color: #2ecc87;
 }
-
 .btn:hover {
 	opacity: 1;
 	color: #2ecc87;
 	border: solid 1px #2ecc87;
 	background-color: #fff;
 }
-
 /* ====================
 	common
 ==================== */
@@ -86,37 +73,29 @@ select {
 	width: 100%;
 	border-bottom: solid 1px #000;
 }
-
-.top>div {
+.top > div {
 	margin: 30px auto;
 }
-
-.top>.flex>div:nth-child(1)>a {
+.top > .flex > div:nth-child(1) > a {
 	margin-right: 20px;
 }
-
-.top>.flex>div:nth-child(2)>a {
+.top > .flex > div:nth-child(2) > a {
 	margin-left: 10px;
-	font-size: 12px;
+    font-size: 12px;
 }
-
-.top>.flex>div:nth-child(2)>div {
+.top > .flex > div:nth-child(2) > div {
 	margin-right: 10px;
 }
-
-.top>.flex>.flex>a {
+.top > .flex > .flex > a {
 	display: block;
 }
-
 .top small {
 	display: block;
 	text-align: center;
 }
-
 .top small:nth-child(1) {
 	margin-bottom: 5px;
 }
-
 h1 {
 	font-size: 25px;
 	margin-bottom: 50px;
@@ -129,9 +108,8 @@ table a {
 	text-decoration-thickness: 1px;
 	text-underline-offset: 5px;
 }
-
 .top a:hover,
-table a:hover p {
+table a:hover p{
 	opacity: .6;
 }
 
@@ -139,29 +117,23 @@ table a:hover p {
 	一覧ページ
 ==================== */
 table {
-	width: 100%;
-}
-
+    width: 100%;}
 th {
-	padding: 10px 0;
+    padding: 10px 0;
 }
-
 td {
-	padding: 10px;
-	border: solid 1px;
+    padding: 10px;
+    border: solid 1px;
 }
-
 td:last-child {
 	width: 70px;
 }
-
 table .btn {
 	width: 60px;
 	padding: 5px 10px;
 	border: solid 1px #4285f4;
-	background-color: #4285f4;
+    background-color: #4285f4;
 }
-
 table .btn:hover {
 	color: #4285f4;
 	border: solid 1px #4285f4;
@@ -171,11 +143,9 @@ table .btn:hover {
 .aView td:nth-child(3) {
 	width: 150px;
 }
-
 .aView td:nth-child(4) {
 	width: 100px;
 }
-
 .pView td:nth-child(3),
 .pView td:nth-child(4),
 .pView td:nth-child(5) {
@@ -189,26 +159,21 @@ table .btn:hover {
 	flex-wrap: wrap;
 	align-items: baseline;
 }
-
-.flex.entry>div {
+.flex.entry > div {
 	width: 45%;
-	margin: 0 0 50px;
+    margin: 0 0 50px;
 }
-
-.flex.entry>div>label {
+.flex.entry > div > label {
 	display: block;
 	margin-bottom: 5px;
 }
-
-.flex.entry>div>p {
+.flex.entry > div > p {
 	position: relative;
 }
-
-.flex.entry.spec>div {
+.flex.entry.spec > div {
 	position: relative;
 }
-
-.flex.entry.spec>div::after {
+.flex.entry.spec > div::after {
 	content: '';
 	position: absolute;
 	bottom: -5px;
@@ -217,60 +182,46 @@ table .btn:hover {
 	height: 1px;
 	background-color: #ccc;
 }
-
-.flex.entry.spec>div>label {
+.flex.entry.spec > div > label {
 	display: block;
 	margin-bottom: 10px;
 	font-size: 14px;
 	color: #999;
 }
-
 .prop-unit {
 	position: relative;
 	width: fit-content;
 }
-
 .prop-unit::after {
-	content: '㎡';
-	position: absolute;
-	right: -25px;
-	top: 50%;
-	transform: translateY(-50%);
+    content: '㎡';
+    position: absolute;
+    right: -25px;
+    top: 50%;
+    transform: translateY(-50%);
 }
-
 .btns {
 	margin: 50px 0 0;
 }
-
-.btns>div>button {
+.btns > div > button {
 	display: block;
 }
-
-.btns>div>button:nth-child(1) {
+.btns > div > button:nth-child(1) {
 	margin-bottom: 10px;
 }
-
 .arrow-down {
 	position: relative;
 }
-
 .arrow-down::after {
 	content: '▽';
-	position: absolute;
-	right: 10px;
-	top: 50%;
-	transform: translateY(-50%);
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
 	z-index: -1;
 }
-
 .form-search {
 	margin-bottom: 10px;
 }
-
-.pagination {
-	justify-content: center;
-}
-
 /* ====================
 	ログインページ
 ==================== */
@@ -278,24 +229,25 @@ table .btn:hover {
 	position: relative;
 	height: 100vh;
 }
-
 .login_form {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 100%;
-	padding: 50px 50px;
-	border: solid 1px #ddd;
-	border-radius: 5px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 100%;
+    padding: 50px 50px;
+    border: solid 1px #ddd;
+    border-radius: 5px;
 }
-
 .login_form h1 {
 	text-align: center;
 }
-
 .login_form .btn {
 	display: block;
-	margin: 40px auto 0;
-	padding: 10px 40px;
+    margin: 40px auto 0;
+    padding: 10px 40px;
+}
+/* TODO：①非表示はクラス名で対応 */
+.hide {
+    display: none;
 }

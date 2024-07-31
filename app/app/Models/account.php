@@ -3,35 +3,31 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Realestate;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Foundation\Auth\User as Authenticatable; //追記
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+use App\Traits\UserRoleTrait;
 
-class Account extends Authenticatable
+class Account extends Authenticatable //モデルから変更
 {
-    use HasFactory;
-    use SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable;
 
+    //関連付けるテーブル
+    protected $table ='accounts';
+
+    //テーブルに関連付ける主キー
+    protected $primaryKey = 'id';
+
+    //登録・更新可能なカラムの指定
     protected $fillable = [
         'name',
         'email',
         'password',
         'tel',
-        'role'
+        'role',
     ];
 
-    public function realestates()
-    {
-        return $this->hasMany(Realestate::class);
-    }
-
-    public static function boot()
-    {
-        parent::boot();
-
-        static::deleted(function ($account) {
-            $account->realestates()->delete();
-        });
-    }
+    protected $hidden = [
+        'password',
+    ];
 }
