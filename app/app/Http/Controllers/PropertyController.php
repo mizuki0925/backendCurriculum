@@ -93,7 +93,7 @@ class PropertyController extends Controller
         // ログインユーザーを取得
         $user = Auth::user();
         // ログインユーザーの権限名を取得
-        $role = $this->getUserRole();
+        $role = $this->getUserRole($user);
 
         return view('property/regist', [
             'user' => $user,
@@ -149,14 +149,14 @@ class PropertyController extends Controller
         // ログインユーザーを取得
         $user = Auth::user();
         // ログインユーザーの権限名を取得
-        $role = $this->getUserRole();
+        $role = $this->getUserRole($user);
 
         return view('property/edit', compact('realestate', 'user', 'role'));
     }
 
     // 物件更新
     // TODO:②関数名の書き方、統一すること
-    public function Update(realestateUpdateRequest $request, $realestateId)
+    public function update(realestateUpdateRequest $request, $realestateId)
     {
         $data = $request->validated();
         $realestate = Realestate::find($realestateId);
@@ -181,7 +181,7 @@ class PropertyController extends Controller
         // ログインユーザーを取得
         $user = Auth::user();
         // ログインユーザーの権限名を取得
-        $role = $this->getUserRole();
+        $role = $this->getUserRole($user);
 
         // 物件情報を取得
         $realestate = Realestate::find($realestateId);

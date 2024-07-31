@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 /**
  * テストバッチクラス
@@ -31,9 +32,11 @@ class TestBatch extends Command
      */
     public function handle()
     {
-        \Log::info('実行しました。');
-        \Log::info($this->argument('name'));
-        \Log::info($this->argument('age'));
+        echo ('実行中');
+        Log::info('実行しました。');
+        Log::info($this->argument('name'));
+        Log::info($this->argument('age'));
+        echo ('終了');
 
         return Command::SUCCESS;
     }

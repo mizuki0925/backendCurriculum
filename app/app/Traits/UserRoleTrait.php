@@ -2,15 +2,15 @@
 
 namespace App\Traits;
 
-use Illuminate\Support\Facades\Auth;
+use App\Models\Account;
+use App\Exceptions\AccountInvalidException;
 
 trait UserRoleTrait
 {
     //ログインユーザーの権限
-    public function getUserRole()
+    public function getUserRole(Account $user): string
     {
-        $user = Auth::user();
-
+        static::ensureAccountModel($user);
         switch ($user->role) {
             case 1:
                 return '管理者';
@@ -23,9 +23,10 @@ trait UserRoleTrait
 
     // TODO:③定数化の説明
     //アカウント情報の権限
-    public function setRoleName($accounts)
+    public function setRoleName(array $accounts): array
     {
         foreach ($accounts as $account) {
+            static::ensureAccountModel($account);
             switch ($account->role) {
                 case 1:
                     $account->role = '管理者';
@@ -39,5 +40,18 @@ trait UserRoleTrait
             }
         }
         return $accounts;
+    }
+
+    /**
+     * アカウントモデルでない場合エラー
+     *
+     * @param [type] $variable
+     * @return void
+     */
+    private static function ensureAccountModel($variable)
+    {
+        if (!$variable instanceof Account) {
+            throw new AccountInvalidException();
+        }
     }
 }

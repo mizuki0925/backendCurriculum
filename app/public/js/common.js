@@ -63,14 +63,14 @@ function getData() {
         // data : JSON.stringify({  // 送信するデータの型(Object , String, Array)
         //     "data" : 'test1',
         // }),
-        success: function (result) { // 成功時に実行されるコールバック関数
+    })
+        .done(function (result) { // 成功時に実行されるコールバック関数
             console.log(result);
             $(".last").find('p').text(result['data']);
-        },
-        error: function (request, status, error) { // 通信に失敗したときに呼ばれるコールバック関数。
+        })
+        .fail(function (error) { // 通信に失敗したときに呼ばれるコールバック関数。
             console.log(error)
-        }
-    });
+        });
 }
 
 /**
@@ -79,7 +79,7 @@ function getData() {
 function setPrefectures() {
     // https://opendata.resas-portal.go.jp/api/v1/prefectures
     const url = '/api/test/getPrefectures';
-    const success = function(data) {
+    const success = function (data) {
         setSelectBox('prefectures', data);
     };
     Ajax('GET', url, null, success, null);
@@ -93,7 +93,7 @@ function setPrefectures() {
 function setCities(preCode) {
     // https://opendata.resas-portal.go.jp/api/v1/cities?prefCode=1
     const url = '/api/test/getCities/' + preCode;
-    const success = function(data) {
+    const success = function (data) {
         setSelectBox('cities', data);
     };
     Ajax('GET', url, null, success, null);
@@ -135,17 +135,17 @@ function Ajax(method, url, data, successFnc, errorFnc) {
         headers: {              // Http header
             "Content-Type": "application/json", // 送信するデータの型
         },
-        dataType: 'json',       // サーバから返されるデータの型(html, xml, json, text など)
-        success: function (result) { // 成功時に実行されるコールバック関数
+        dataType: 'json'       // サーバから返されるデータの型(html, xml, json, text など)
+    })
+        .done(function (result) { // 成功時に実行されるコールバック関数
             if (typeof successFnc === 'function') {
                 successFnc(result);
             }
-        },
-        error: function (request, status, error) { // 通信に失敗したときに呼ばれるコールバック関数。
+        })
+        .fail(function (error) { // 通信に失敗したときに呼ばれるコールバック関数。
             console.log(error);
             if (typeof errorFnc === 'function') {
                 errorFnc(error);
             }
-        }
-    });
+        });
 }

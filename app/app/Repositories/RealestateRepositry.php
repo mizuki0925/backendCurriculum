@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Realestate;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator as paginator; // useする際にクラス名が分かり辛かったらasで名前つけちゃうのもあり
 
 class RealestateRepositry
 {
@@ -19,9 +20,9 @@ class RealestateRepositry
      *
      * @param string|null $name 物件名
      * @param string|null $address 物件住所
-     * @return void
+     * @return paginator
      */
-    public function serchRealestate(string|null $name, string|null $address)
+    public function searchRealestate(?string $name, ?string $address): paginator
     {
         $query = Realestate::query(); // 物件情報の検索クエリを作成
 
@@ -48,7 +49,7 @@ class RealestateRepositry
      */
     public function query(): Builder
     {
-        return $this->realestateModel->query();
+        return $this->realestateModel->newQuery();
     }
 
     /**

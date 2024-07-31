@@ -82,8 +82,8 @@
                                 <p>{{ $account->tel }}</p>
                             </td>
                             <td>
-                                // TODO:③定数化の説明
-                                <p>{{ CommonConst::ROLE_LIST[$account->role] }}</p>
+                                // TODO:③定数化の説明　北山メモ：定数リストに存在しなかった場合不明にしました
+                                <p>{{ CommonConst::ROLE_LIST[$account->role] ?? "不明" }}</p>
                             </td>
                             <td>
                                 @if(Auth::user()->id === $account->id || Auth::user()->role === 1)

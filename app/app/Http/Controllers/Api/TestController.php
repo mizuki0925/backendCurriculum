@@ -48,7 +48,7 @@ class TestController extends Controller
     {
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
-            "X-API-KEY" => 'QtIoDYplcg8NJFT3MLY4WabbK8LzaqbrGYOT5iw6',
+            "X-API-KEY" => config('api', 'api_key'),
         ])->get('https://opendata.resas-portal.go.jp/api/v1/prefectures');
 
         return response()->json($response['result'], 200);
@@ -64,7 +64,7 @@ class TestController extends Controller
     {
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
-            "X-API-KEY" => 'QtIoDYplcg8NJFT3MLY4WabbK8LzaqbrGYOT5iw6',
+            "X-API-KEY" => config('api', 'api_key'),
         ])->get('https://opendata.resas-portal.go.jp/api/v1/cities?prefCode=' . $preCode);
 
         return response()->json($response['result'], 200);

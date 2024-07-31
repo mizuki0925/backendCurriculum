@@ -43,7 +43,7 @@ class Realestate extends Model
      * @param string|null $address 物件住所
      * @return void
      */
-    public function serchRealestate(string|null $name, string|null $address)
+    public function searchRealestate(?string $name, ?string $address)
     {
         $query = Realestate::query(); // 物件情報の検索クエリを作成
 
