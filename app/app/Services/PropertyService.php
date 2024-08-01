@@ -33,7 +33,7 @@ class PropertyService
     {
         // TODO：②テンプレ共通化した場合、ログイン時にセッションで持っておくこともできる
         $user = Auth::user(); // ログインユーザーを取得
-        $role = $this->getUserRole($user); // ログインユーザーの権限名を取得
+        $role = static::getLoginUserRole(); // ログインユーザーの権限名を取得
 
         // TODO：②Blade側でOLDメソッド使用時は不要
         $name = $request->input('name');

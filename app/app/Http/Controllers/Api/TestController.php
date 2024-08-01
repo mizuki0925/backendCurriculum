@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 /**
  * APIコントローラクラス
@@ -22,8 +23,8 @@ class TestController extends Controller
     // public function getData(Request $request, $data): JsonResponse
     public function getData($data): JsonResponse
     {
-        // TODO:API時のデバッグ方法
-        \Log::debug($data);
+        // TODO:API時のデバッグ方法　北山メモ：xdebug使えるのでこっちも軽く触れてもいいかも
+        Log::debug($data);
 
         $response = [];
         $data = $data . '-OK';

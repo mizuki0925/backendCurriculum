@@ -35,7 +35,7 @@ class AccountController extends Controller
         // ログインユーザーを取得
         $user = Auth::user();
         // ログインユーザーの権限名を取得
-        $role = $this->getUserRole($user);
+        $role = static::getLoginUserRole();
         // 全アカウントを取得
         $accounts = Account::paginate(10);
 
@@ -132,7 +132,7 @@ class AccountController extends Controller
         // ログインユーザーを取得
         $user = Auth::user();
         // ログインユーザーの権限名を取得
-        $role = $this->getUserRole($user);
+        $role = static::getLoginUserRole();
 
         return view(
             'account/edit',
@@ -187,7 +187,7 @@ class AccountController extends Controller
         // ログインユーザーを取得
         $user = Auth::user();
         // ログインユーザーの権限名を取得
-        $role = $this->getUserRole($user);
+        $role = static::getLoginUserRole();
         // アカウント情報の権限を取得
         $this->setRoleName([$account]);
 

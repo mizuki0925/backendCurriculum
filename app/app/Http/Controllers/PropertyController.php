@@ -93,7 +93,7 @@ class PropertyController extends Controller
         // ログインユーザーを取得
         $user = Auth::user();
         // ログインユーザーの権限名を取得
-        $role = $this->getUserRole($user);
+        $role = static::getLoginUserRole();
 
         return view('property/regist', [
             'user' => $user,
@@ -149,7 +149,7 @@ class PropertyController extends Controller
         // ログインユーザーを取得
         $user = Auth::user();
         // ログインユーザーの権限名を取得
-        $role = $this->getUserRole($user);
+        $role = static::getLoginUserRole();
 
         return view('property/edit', compact('realestate', 'user', 'role'));
     }
@@ -181,7 +181,7 @@ class PropertyController extends Controller
         // ログインユーザーを取得
         $user = Auth::user();
         // ログインユーザーの権限名を取得
-        $role = $this->getUserRole($user);
+        $role = static::getLoginUserRole();
 
         // 物件情報を取得
         $realestate = Realestate::find($realestateId);
