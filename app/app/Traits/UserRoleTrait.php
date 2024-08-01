@@ -66,10 +66,11 @@ trait UserRoleTrait
     }
 
     /**
-     * アカウントモデルでない場合エラー
+     * アカウントモデルでない場合エラーを投げる
      *
-     * @param [type] $variable
+     * @param mixed $variable チェック対象の変数
      * @return void
+     * @throws AccountInvalidException アカウントモデルでない場合
      */
     private static function isAccountModel($variable)
     {
