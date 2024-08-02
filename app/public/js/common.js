@@ -66,7 +66,32 @@ function getData() {
     })
         .done(function (result) { // 成功時に実行されるコールバック関数
             console.log(result);
-            $(".last").find('p').text(result['data']);
+            $(".last").after(
+                `<tr>` +
+                // TODO:①　北山メモ：$loop->iterationを有効化する際にコメントアウト解除してください
+                // `<td>` +
+                // `<p>ex</p>` +
+                // `</td>` +
+                `<td class="name">` +
+                `<a href="#">` +
+                `<p>${result['data']['name']}</p>` +
+                `</a>` +
+                `</td>` +
+                `<td>` +
+                `<p>${result['data']['email']}</p>` +
+                `</td>` +
+                `<td>` +
+                `<p>${result['data']['tel']}</p>` +
+                `</td>` +
+                `<td>` +
+                `<p>${result['data']['role']}</p>` +
+                `</td>` +
+                `<td>` +
+                `<a href="#"><button class="btn">編集</button></a>` +
+                `</td>` +
+                `</tr>`
+            );
+            // .text(result['data']);
         })
         .fail(function (error) { // 通信に失敗したときに呼ばれるコールバック関数。
             console.log(error)

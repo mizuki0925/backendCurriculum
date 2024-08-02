@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Consts\CommonConst;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -27,7 +28,12 @@ class TestController extends Controller
         Log::debug($data);
 
         $response = [];
-        $data = $data . '-OK';
+        $data = [
+            'name' => $data,
+            'email' => 'xxxx@xxx.com',
+            'tel' => '08012345678',
+            'role' => CommonConst::ROLE_LIST[CommonConst::ACCOUNT_ROLE_GENERAL],
+        ];
 
         // ここで処理のロジックを記載する
         // 登録、削除、取得処理など

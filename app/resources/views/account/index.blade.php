@@ -41,9 +41,9 @@
                 <tbody>
                     <tr>
                         {{-- TODO:①Noの説明 --}}
-                        {{--  <td>
+                         <td>
                             <p>No</p>
-                        </td>  --}}
+                        </td> 
                         <td>
                             <p>アカウント名</p>
                         </td>
@@ -62,15 +62,15 @@
                     {{-- TODO:①埋め込みの説明 --}}
                         {{--  @php $class = '' @endphp
                         @if ($loop->last) $class = 'last' @endif  --}}
-                        <tr>
+                        <tr @class([
+                            'name',                      {{-- 常にclassに含まれる --}}
+                            'last' => $loop->last,  {{-- $hasErrorが真のときclassに含まれる --}}
+                        ])>
                             {{-- TODO:①Noの説明 https://eclair.blog/laravel-blade-loop/ --}}
-                            {{--  <td>
+                             {{-- <td>
                                 <p>{{ $loop->iteration }}</p>
                             </td>  --}}
-                            <td @class([
-                                'name',                      {{-- 常にclassに含まれる --}}
-                                'last' => $loop->last,  {{-- $hasErrorが真のときclassに含まれる --}}
-                            ])>
+                            <td>
                                 <a href="{{ route('account.spec', ['accountId'=>$account->id]) }}">
                                     <p>{{ $account->name }}</p>
                                 </a>
