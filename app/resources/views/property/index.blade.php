@@ -29,7 +29,7 @@
         </div>
         <div class="inner1000 content">
             <form action="{{ route('property.index') }}" method="GET">
-                // TODO：②oldメソッドに変更する
+                {{-- // TODO：②oldメソッドに変更する --}}
                 <input class="form-search" type="text" name="name" value="{{ $name }}" placeholder="物件名">
                 <input class="form-search" type="text" name="address" value="{{ $address }}" placeholder="住所">
                 <div align="right">

@@ -10,7 +10,7 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </head>
-// TODO:①共通化の説明
+{{-- TODO:①共通化の説明 --}}
 <body>
     <script src="{{ asset('/js/common.js') }}"></script>
     <main>
@@ -40,7 +40,7 @@
             <table class="aView">
                 <tbody>
                     <tr>
-                        // TODO:①Noの説明
+                        {{-- TODO:①Noの説明 --}}
                         {{--  <td>
                             <p>No</p>
                         </td>  --}}
@@ -59,11 +59,11 @@
                         <td></td>
                     </tr>
                     @foreach ($accounts as $account)
-                    // TODO:①埋め込みの説明
+                    {{-- TODO:①埋め込みの説明 --}}
                         {{--  @php $class = '' @endphp
                         @if ($loop->last) $class = 'last' @endif  --}}
                         <tr>
-                            // TODO:①Noの説明 https://eclair.blog/laravel-blade-loop/
+                            {{-- TODO:①Noの説明 https://eclair.blog/laravel-blade-loop/ --}}
                             {{--  <td>
                                 <p>{{ $loop->iteration }}</p>
                             </td>  --}}
@@ -82,7 +82,7 @@
                                 <p>{{ $account->tel }}</p>
                             </td>
                             <td>
-                                // TODO:③定数化の説明　北山メモ：定数リストに存在しなかった場合不明にしました
+                                {{-- TODO:③定数化の説明　北山メモ：定数リストに存在しなかった場合不明にしました --}}
                                 <p>{{ CommonConst::ROLE_LIST[$account->role] ?? "不明" }}</p>
                             </td>
                             <td>
@@ -95,12 +95,12 @@
                 </tbody>
             </table>
             {{--  以降、追加処理  --}}
-            // TODO:①jQueryの説明
+            {{-- TODO:①jQueryの説明 --}}
             <button class="btn test-btn">表示する</button>
             <button class="btn api-btn hide">API実行</button>
             <div class="api-result"></div>
 
-            // TODO:①Ajaxの説明
+            {{-- TODO:①Ajaxの説明 --}}
             <select id="prefectures" name="prefectures" style="margin-top: 20px">
                 <option value=""> - </option>
             </select>
