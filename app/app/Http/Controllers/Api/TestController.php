@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Consts\CommonConst;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 /**
  * APIコントローラクラス
@@ -22,11 +24,16 @@ class TestController extends Controller
     // public function getData(Request $request, $data): JsonResponse
     public function getData($data): JsonResponse
     {
-        // TODO:API時のデバッグ方法
-        \Log::debug($data);
+        // TODO:API時のデバッグ方法　北山メモ：xdebug使えるのでこっちも軽く触れてもいいかも
+        Log::debug($data);
 
         $response = [];
-        $data = $data . '-OK';
+        $data = [
+            'name' => $data,
+            'email' => 'xxxx@xxx.com',
+            'tel' => '08012345678',
+            'role' => CommonConst::ROLE_LIST[CommonConst::ACCOUNT_ROLE_GENERAL],
+        ];
 
         // ここで処理のロジックを記載する
         // 登録、削除、取得処理など
@@ -48,7 +55,7 @@ class TestController extends Controller
     {
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
-            "X-API-KEY" => 'QtIoDYplcg8NJFT3MLY4WabbK8LzaqbrGYOT5iw6',
+            "X-API-KEY" => config('api', 'api_key'),
         ])->get('https://opendata.resas-portal.go.jp/api/v1/prefectures');
 
         return response()->json($response['result'], 200);
@@ -64,7 +71,7 @@ class TestController extends Controller
     {
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
-            "X-API-KEY" => 'QtIoDYplcg8NJFT3MLY4WabbK8LzaqbrGYOT5iw6',
+            "X-API-KEY" => config('api', 'api_key'),
         ])->get('https://opendata.resas-portal.go.jp/api/v1/cities?prefCode=' . $preCode);
 
         return response()->json($response['result'], 200);

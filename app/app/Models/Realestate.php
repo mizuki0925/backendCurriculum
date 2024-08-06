@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Account;
 use App\Traits\UserRoleTrait;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator as paginator;
 
 class Realestate extends Model
 {
@@ -39,13 +40,13 @@ class Realestate extends Model
     /**
      * 物件検索時の取得処理
      *
-     * @param string|null $name 物件名
-     * @param string|null $address 物件住所
-     * @return void
+     * @param string|null $name
+     * @param string|null $address
+     * @return paginator
      */
-    public function serchRealestate(string|null $name, string|null $address)
+    public function searchRealestate(?string $name, ?string $address): paginator
     {
-        $query = Realestate::query(); // 物件情報の検索クエリを作成
+        $query = self::query(); // 物件情報の検索クエリを作成
 
         // 物件名のキーワード検索
         if ($name) {

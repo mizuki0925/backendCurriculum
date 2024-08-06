@@ -2,8 +2,6 @@
 
 namespace App\Traits;
 
-use Illuminate\Support\Facades\Auth;
-
 trait TenancyStatusTrait
 {
     public function formatTenancyStatus($realestates)

@@ -9,6 +9,7 @@ use App\Traits\UserRoleTrait;
 use App\Traits\TenancyStatusTrait;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class PropertyService
 {
@@ -32,7 +33,7 @@ class PropertyService
     {
         // TODO：②テンプレ共通化した場合、ログイン時にセッションで持っておくこともできる
         $user = Auth::user(); // ログインユーザーを取得
-        $role = $this->getUserRole(); // ログインユーザーの権限名を取得
+        $role = static::getLoginUserRole(); // ログインユーザーの権限名を取得
 
         // TODO：②Blade側でOLDメソッド使用時は不要
         $name = $request->input('name');
@@ -60,16 +61,15 @@ class PropertyService
      * @param string|null $address
      * @return LengthAwarePaginator
      */
-    private function getRealestate(string|null $name, string|null $address): LengthAwarePaginator
+    private function getRealestate(?string $name, ?string $address): LengthAwarePaginator
     {
-        // パターン①
-        // $realestates = $this->realestateRepositry->serchRealestate($name, $address);
-
-        // パターン②
         $query = $this->realestateRepositry->query();
         $query = $this->realestateRepositry->whereLike($query, 'name', $name);
         $query = $this->realestateRepositry->whereLike($query, 'address', $address);
         $realestates = $query->with('account')->paginate(10);
+
+        // 上記も下記も同じ結果
+        // $realestates = $this->realestateRepositry->searchRealestate($name, $address);
 
         return $realestates;
     }
@@ -107,7 +107,7 @@ class PropertyService
             $result = true;
         } catch (\Exception $e) {
             DB::rollback();
-            \Log::error($e);
+            Log::error($e);
         }
 
         return $result;
